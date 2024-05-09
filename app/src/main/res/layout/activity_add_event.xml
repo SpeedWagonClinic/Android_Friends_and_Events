@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".AddEventActivity">
+
+    <EditText
+        android:id="@+id/editTextEventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Name" />
+
+    <EditText
+        android:id="@+id/editTextEventLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+
+    <EditText
+        android:id="@+id/editTextEventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date (YYYY-MM-DD)" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSelectFriends"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/buttonAddEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone" />
+
+    <EditText
+        android:id="@+id/editTextGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gender" />
+
+
+    <EditText
+        android:id="@+id/editTextDOB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth" />
+
+    <EditText
+        android:id="@+id/editTextHobbies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hobbies" />
+
+    <Button
+        android:id="@+id/buttonAddFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Friend" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+</LinearLayout>
