@@ -13,5 +13,6 @@ Describe what your project is about in a brief paragraph or two. Explain the mai
 
 Include a few screenshots of your project in action. You can add images using this syntax:
 
-![Description or title of your image](URL_or_relative_path_to_image)
+![Main Screen](https://github.com/SpeedWagonClinic/Android_Friends_and_Events/blob/main/screenshots/Main%20Menu.png))
+
 
