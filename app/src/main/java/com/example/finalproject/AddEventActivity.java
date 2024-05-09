@@ -14,18 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to add new events to the database.
+ */
 public class AddEventActivity extends AppCompatActivity {
 
     private EditText editTextEventName, editTextEventLocation, editTextEventDate;
     private DatabaseHelper dbHelper;
     private FriendsAdapter friendsAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
+        // Initialize database helper and UI components.
         dbHelper = new DatabaseHelper(this);
         editTextEventName = findViewById(R.id.editTextEventName);
         editTextEventLocation = findViewById(R.id.editTextEventLocation);
@@ -34,19 +37,22 @@ public class AddEventActivity extends AppCompatActivity {
         Button buttonAddEvent = findViewById(R.id.buttonAddEvent);
         Button cancelBtn = findViewById(R.id.cancelBtn);
 
-
+        // Set up RecyclerView for displaying friend selections.
         recyclerViewSelectFriends.setLayoutManager(new LinearLayoutManager(this));
         friendsAdapter = new FriendsAdapter(new ArrayList<>(), new ArrayList<>());
         recyclerViewSelectFriends.setAdapter(friendsAdapter);
 
-
+        // Load friends from database to RecyclerView.
         loadFriends();
 
+        // Set up listeners for buttons.
         buttonAddEvent.setOnClickListener(view -> addEvent());
         cancelBtn.setOnClickListener(v -> finish());
     }
 
-
+    /**
+     * Loads friends from the database and updates the RecyclerView.
+     */
     private void loadFriends() {
         Cursor cursor = dbHelper.getAllFriends();
         List<Friend> friends = new ArrayList<>();
@@ -64,7 +70,9 @@ public class AddEventActivity extends AppCompatActivity {
         friendsAdapter.updateFriendsList(friends, selectedFriendIds);
     }
 
-
+    /**
+     * Adds an event to the database using data from input fields.
+     */
     private void addEvent() {
         String name = editTextEventName.getText().toString().trim();
         String location = editTextEventLocation.getText().toString().trim();
@@ -84,6 +92,4 @@ public class AddEventActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill all the fields.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

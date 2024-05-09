@@ -14,16 +14,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for displaying a list of friends with selectable checkboxes in a RecyclerView.
+ */
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     private final List<Friend> friendList;
     private final List<Integer> selectedIds;
 
+    /**
+     * Constructs the FriendsAdapter.
+     *
+     * @param friendList A list of friends to display.
+     * @param selectedIds A list of IDs that are initially selected.
+     */
     public FriendsAdapter(List<Friend> friendList, List<Integer> selectedIds) {
         this.friendList = friendList;
         this.selectedIds = selectedIds == null ? new ArrayList<>() : selectedIds;
         Log.d("FriendsAdapter", "Initialized with " + friendList.size() + " friends and " + this.selectedIds.size() + " selected IDs.");
     }
 
+    /**
+     * Updates the list of friends and the selected IDs.
+     *
+     * @param newFriends A new list of friends.
+     * @param newSelectedIds A new list of selected IDs.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void updateFriendsList(List<Friend> newFriends, List<Integer> newSelectedIds) {
         friendList.clear();
@@ -32,7 +47,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         selectedIds.addAll(newSelectedIds);
         notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override
@@ -49,6 +63,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         holder.textViewFriendGender.setText(friend.getGender());
         holder.checkBoxSelect.setChecked(selectedIds.contains(friend.getId()));
 
+        // Prevent triggering the listener while binding
         holder.checkBoxSelect.setOnCheckedChangeListener(null);
         holder.checkBoxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
             friend.setSelected(isChecked);
@@ -62,7 +77,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         });
     }
 
-
+    /**
+     * Retrieves the IDs of all selected friends.
+     *
+     * @return A list of IDs of selected friends.
+     */
     public List<Integer> getSelectedFriendsIds() {
         List<Integer> selectedIds = new ArrayList<>();
         for (Friend friend : friendList) {
@@ -73,14 +92,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         return selectedIds;
     }
 
-
     @Override
     public int getItemCount() {
-        Log.d("RecyclerView", "Item count: " + friendList.size());
         return friendList.size();
     }
 
-
+    /**
+     * ViewHolder for friend items.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewFriendName;
         TextView textViewFriendPhone;
@@ -95,5 +114,4 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             checkBoxSelect = itemView.findViewById(R.id.checkBoxSelect);
         }
     }
-
 }

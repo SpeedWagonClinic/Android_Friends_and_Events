@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.database.Cursor;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activity to edit an existing friend's details.
+ */
 
 public class EditFriendActivity extends AppCompatActivity {
     private EditText nameEditText, phoneEditText, genderEditText, dobEditText, hobbiesEditText;
@@ -38,6 +39,11 @@ public class EditFriendActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(v -> finish());
     }
 
+
+    /**
+     * Loads friend data from the database and populates the UI with the data.
+     */
+
     @SuppressLint("Range")
     private void loadFriendData() {
         Cursor cursor = dbHelper.getFriend(friendId);
@@ -51,6 +57,9 @@ public class EditFriendActivity extends AppCompatActivity {
         cursor.close();
     }
 
+    /**
+     * Updates the friend's details in the database with the data entered by the user.
+     */
     private void updateFriend() {
         String name = nameEditText.getText().toString();
         String phone = phoneEditText.getText().toString();
@@ -62,6 +71,9 @@ public class EditFriendActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Deletes the friend from the database.
+     */
     private void deleteFriend() {
         dbHelper.deleteFriend(friendId);
         finish();

@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to edit details of an existing event.
+ */
 public class EditEventActivity extends AppCompatActivity {
 
     private EditText editTextEventName, editTextEventLocation, editTextEventDate;
@@ -26,6 +29,7 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
 
+        // Initialize database helper and UI components.
         dbHelper = new DatabaseHelper(this);
         editTextEventName = findViewById(R.id.editTextEventName);
         editTextEventLocation = findViewById(R.id.editTextEventLocation);
@@ -35,20 +39,26 @@ public class EditEventActivity extends AppCompatActivity {
         Button buttonDeleteEvent = findViewById(R.id.buttonDeleteEvent);
         Button cancelBtn1 = findViewById(R.id.cancelBtn1);
 
+        // Get the event ID from the previous activity.
         eventId = getIntent().getIntExtra("EVENT_ID", 0);
 
-
+        // Setup RecyclerView and adapters for displaying attending friends.
         friendsAdapter = new FriendsAdapter(new ArrayList<>(), new ArrayList<>());
         recyclerViewAttendingFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAttendingFriends.setAdapter(friendsAdapter);
 
+        // Load existing event data.
         loadEventData();
 
+        // Setup listeners for update and delete operations.
         buttonUpdateEvent.setOnClickListener(v -> updateEvent());
         buttonDeleteEvent.setOnClickListener(v -> deleteEvent());
         cancelBtn1.setOnClickListener(v -> finish());
     }
 
+    /**
+     * Loads the event data from the database and sets it to the view components.
+     */
     private void loadEventData() {
         Cursor cursor = dbHelper.getEvent(eventId);
         if (cursor != null && cursor.moveToFirst()) {
@@ -60,30 +70,25 @@ public class EditEventActivity extends AppCompatActivity {
             editTextEventLocation.setText(location);
             editTextEventDate.setText(date);
 
+            // Load and display attending friends.
             List<Friend> allFriends = dbHelper.getAllFriendsAsList();
             List<Friend> attendingFriends = dbHelper.getFriendsForEvent(eventId);
-
-
             List<Integer> attendingFriendIds = new ArrayList<>();
             for (Friend friend : attendingFriends) {
                 attendingFriendIds.add(friend.getId());
-                for (Friend allFriend : allFriends) {
-                    if (allFriend.getId() == friend.getId()) {
-                        allFriend.setSelected(true);
-                        break;
-                    }
-                }
+                allFriends.stream().filter(f -> f.getId() == friend.getId()).findFirst().ifPresent(f -> f.setSelected(true));
             }
 
             friendsAdapter.updateFriendsList(allFriends, attendingFriendIds);
-
             cursor.close();
         } else {
             Toast.makeText(this, "Error loading event.", Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    /**
+     * Updates the event with new details entered by the user.
+     */
     private void updateEvent() {
         String name = editTextEventName.getText().toString().trim();
         String location = editTextEventLocation.getText().toString().trim();
@@ -104,7 +109,9 @@ public class EditEventActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Deletes the event from the database.
+     */
     private void deleteEvent() {
         dbHelper.deleteEvent(eventId);
         Toast.makeText(this, "Event deleted successfully!", Toast.LENGTH_SHORT).show();
