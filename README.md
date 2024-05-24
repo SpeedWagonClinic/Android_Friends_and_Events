@@ -1,6 +1,6 @@
 # Android_Friends_and_Events
 
-Android mobile application built using Java allows users to handle events and friends' records.
+Android mobile application built using Java allows users to handle events and friend record.
 
 ## Features
 
